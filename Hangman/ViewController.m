@@ -18,12 +18,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    // hide textfield by default
+    self.customTextField.hidden = YES;
+    
+    //display keyboard
+    [self.customTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 - (IBAction)changeTextClick:(id)sender
@@ -33,9 +40,5 @@
     [self.customTextField resignFirstResponder];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.customTextField resignFirstResponder];
-}
 
 @end
