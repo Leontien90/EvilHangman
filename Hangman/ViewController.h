@@ -10,9 +10,10 @@
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *customLabel;
-@property (weak, nonatomic) IBOutlet UIButton *changeTextButton;
-@property (weak, nonatomic) IBOutlet UITextField *customTextField;
+@property (weak, nonatomic) IBOutlet UILabel *turnsLeftLabel;
+@property (weak, nonatomic) IBOutlet UITextField *letterEntryField;
+@property (weak, nonatomic) IBOutlet UILabel *wordToGuessLabel;
+
 
 @end
 

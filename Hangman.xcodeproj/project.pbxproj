@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		658202591A1F4A4F0029D295 /* short.plist in Resources */ = {isa = PBXBuildFile; fileRef = 658202581A1F4A4F0029D295 /* short.plist */; };
 		65A25AA21A10D99800BCFF3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AA11A10D99800BCFF3F /* main.m */; };
 		65A25AA51A10D99800BCFF3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AA41A10D99800BCFF3F /* AppDelegate.m */; };
 		65A25AA81A10D99800BCFF3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AA71A10D99800BCFF3F /* ViewController.m */; };
@@ -15,7 +16,7 @@
 		65A25AB01A10D99800BCFF3F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65A25AAE1A10D99800BCFF3F /* LaunchScreen.xib */; };
 		65A25ABC1A10D99800BCFF3F /* HangmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25ABB1A10D99800BCFF3F /* HangmanTests.m */; };
 		65A25AC61A10DCA800BCFF3F /* FlipSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AC51A10DCA800BCFF3F /* FlipSideViewController.m */; };
-		65A25AC91A10DF3000BCFF3F /* words.plist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 65A25AC81A10DF3000BCFF3F /* words.plist.txt */; };
+		65A25AC91A10DF3000BCFF3F /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65A25AC81A10DF3000BCFF3F /* words.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		658202581A1F4A4F0029D295 /* short.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = short.plist; sourceTree = "<group>"; };
 		65A25A9C1A10D99800BCFF3F /* Hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A25AA01A10D99800BCFF3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65A25AA11A10D99800BCFF3F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 		65A25ABB1A10D99800BCFF3F /* HangmanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HangmanTests.m; sourceTree = "<group>"; };
 		65A25AC51A10DCA800BCFF3F /* FlipSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipSideViewController.m; sourceTree = "<group>"; };
 		65A25AC71A10DCD900BCFF3F /* FlipSideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipSideViewController.h; sourceTree = "<group>"; };
-		65A25AC81A10DF3000BCFF3F /* words.plist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.plist.txt; sourceTree = "<group>"; };
+		65A25AC81A10DF3000BCFF3F /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +105,10 @@
 		65A25A9F1A10D99800BCFF3F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				65A25AC81A10DF3000BCFF3F /* words.plist.txt */,
+				65A25AC81A10DF3000BCFF3F /* words.plist */,
 				65A25AA01A10D99800BCFF3F /* Info.plist */,
 				65A25AA11A10D99800BCFF3F /* main.m */,
+				658202581A1F4A4F0029D295 /* short.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,8 +211,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				65A25AAB1A10D99800BCFF3F /* Main.storyboard in Resources */,
+				658202591A1F4A4F0029D295 /* short.plist in Resources */,
 				65A25AB01A10D99800BCFF3F /* LaunchScreen.xib in Resources */,
-				65A25AC91A10DF3000BCFF3F /* words.plist.txt in Resources */,
+				65A25AC91A10DF3000BCFF3F /* words.plist in Resources */,
 				65A25AAD1A10D99800BCFF3F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +426,7 @@
 				65A25AC11A10D99800BCFF3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65A25AC21A10D99800BCFF3F /* Build configuration list for PBXNativeTarget "HangmanTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +435,7 @@
 				65A25AC41A10D99800BCFF3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
