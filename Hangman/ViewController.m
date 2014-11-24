@@ -20,18 +20,27 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self loadWordList];
-    [self setDefaultValues];
+    //[self setDefaultValues];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"%ld", [userDefaults integerForKey:@"standardWordLength"]);
+    if ([userDefaults integerForKey:@"standardWordLength"] == 0)
+    {
+        [self setDefaultValues];
+    }
+    
+    self.turnsLeftLabel.text = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardAmountOfGuesses"]];
     
     // hide textfield by default
     self.letterEntryField.hidden = YES;
-    
+
     //display keyboard
     [self.letterEntryField becomeFirstResponder];
 }
 
 -(void)loadWordList
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"short" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:path])
     {
@@ -41,7 +50,6 @@
     {
         NSLog(@"file not found");
     }
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +61,6 @@
 
 - (IBAction)changeTextClick:(id)sender
 {
-    NSLog(@"%@", self.letterEntryField.text);
     NSString *customText = self.letterEntryField.text;
     self.wordToGuessLabel.text = customText;
 }

@@ -41,25 +41,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="opQ-t0-vTu" userLabel="letterEntryField">
-                                <rect key="frame" x="112" y="161" width="97" height="30"/>
+                                <rect key="frame" x="112" y="172" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="changeTextClick:" destination="vXZ-lx-hvc" eventType="editingChanged" id="psL-Hh-VYS"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="turns left : ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-z1-fbU" userLabel="turnsLeftLabel">
-                                <rect key="frame" x="112" y="90" width="97" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-hd-mAl">
                                 <rect key="frame" x="16" y="36" width="22" height="22"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Turns left:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUB-px-EBG">
+                                <rect key="frame" x="91" y="88" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" ..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-z1-fbU" userLabel="turnsLeftLabel">
+                                <rect key="frame" x="194" y="88" width="20" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.82791940789999996" green="1" blue="0.88260690789999996" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
@@ -99,20 +105,14 @@
                                     <action selector="sliderValueChanged:" destination="TnF-n7-3Fn" eventType="valueChanged" id="E5U-v6-0zh"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="7" minValue="1" maxValue="26" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-4t-FKa" userLabel="amountOfGuessesSlider">
-                                <rect key="frame" x="101" y="377" width="118" height="31"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="TnF-n7-3Fn" eventType="valueChanged" id="19A-R4-zeD"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="word length" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHM-U7-FFl">
-                                <rect key="frame" x="115" y="140" width="91" height="21"/>
+                                <rect key="frame" x="199" y="141" width="28" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount of guesses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ed-8s-ZXx">
-                                <rect key="frame" x="86" y="332" width="148" height="21"/>
+                                <rect key="frame" x="208" y="332" width="26" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,6 +126,24 @@
                                     <segue destination="vXZ-lx-hvc" kind="show" id="tKm-kW-QYT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Word length:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rY-4j-TNr">
+                                <rect key="frame" x="86" y="141" width="98" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="amount of guesses:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQx-5u-bUh">
+                                <rect key="frame" x="44" y="332" width="151" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="8" minValue="1" maxValue="26" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-4t-FKa" userLabel="amountOfGuessesSlider">
+                                <rect key="frame" x="101" y="377" width="118" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="TnF-n7-3Fn" eventType="valueChanged" id="19A-R4-zeD"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.76261821549999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
