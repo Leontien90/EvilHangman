@@ -17,6 +17,7 @@
 		65A25ABC1A10D99800BCFF3F /* HangmanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25ABB1A10D99800BCFF3F /* HangmanTests.m */; };
 		65A25AC61A10DCA800BCFF3F /* FlipSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AC51A10DCA800BCFF3F /* FlipSideViewController.m */; };
 		65A25AC91A10DF3000BCFF3F /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65A25AC81A10DF3000BCFF3F /* words.plist */; };
+		65CC25C31A26082A0044B3F8 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC25C21A26082A0044B3F8 /* GameController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		65A25AC51A10DCA800BCFF3F /* FlipSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipSideViewController.m; sourceTree = "<group>"; };
 		65A25AC71A10DCD900BCFF3F /* FlipSideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipSideViewController.h; sourceTree = "<group>"; };
 		65A25AC81A10DF3000BCFF3F /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
+		65CC25C11A26082A0044B3F8 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
+		65CC25C21A26082A0044B3F8 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 			children = (
 				65A25AA31A10D99800BCFF3F /* AppDelegate.h */,
 				65A25AA41A10D99800BCFF3F /* AppDelegate.m */,
+				65CC25C11A26082A0044B3F8 /* GameController.h */,
+				65CC25C21A26082A0044B3F8 /* GameController.m */,
 				65A25AA61A10D99800BCFF3F /* ViewController.h */,
 				65A25AA71A10D99800BCFF3F /* ViewController.m */,
 				65A25AA91A10D99800BCFF3F /* Main.storyboard */,
@@ -235,6 +240,7 @@
 				65A25AA81A10D99800BCFF3F /* ViewController.m in Sources */,
 				65A25AA51A10D99800BCFF3F /* AppDelegate.m in Sources */,
 				65A25AC61A10DCA800BCFF3F /* FlipSideViewController.m in Sources */,
+				65CC25C31A26082A0044B3F8 /* GameController.m in Sources */,
 				65A25AA21A10D99800BCFF3F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

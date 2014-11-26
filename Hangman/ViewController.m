@@ -19,9 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self loadWordList];
     //[self setDefaultValues];
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"%ld", [userDefaults integerForKey:@"standardWordLength"]);
     if ([userDefaults integerForKey:@"standardWordLength"] == 0)
@@ -36,20 +34,6 @@
 
     //display keyboard
     [self.letterEntryField becomeFirstResponder];
-}
-
--(void)loadWordList
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:path])
-    {
-        NSLog(@"file found");
-    }
-    else
-    {
-        NSLog(@"file not found");
-    }
 }
 
 - (void)didReceiveMemoryWarning

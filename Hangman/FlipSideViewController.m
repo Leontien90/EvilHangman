@@ -42,14 +42,12 @@
         int wordLengthLabel = floor(self.wordLengthSlider.value);
         self.wordLengthLabel.text = [NSString stringWithFormat:@"%d", wordLengthLabel];
         [userDefaults setInteger: self.wordLengthSlider.value forKey:@"standardWordLength"];
-        NSLog(@"%@", self.wordLengthLabel.text);
     }
     if (sender == self.amountOfGuessesSlider)
     {
         int amountOfGuessesLabel = floor(self.amountOfGuessesSlider.value);
         self.amountOfGuessesLabel.text = [NSString stringWithFormat:@"%d", amountOfGuessesLabel];
         [userDefaults setInteger: self.amountOfGuessesSlider.value forKey:@"standardAmountOfGuesses"];
-        NSLog(@"%@", self.amountOfGuessesLabel.text);
     }
 }
 
