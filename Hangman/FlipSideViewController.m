@@ -39,13 +39,17 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (sender == self.wordLengthSlider)
     {
-        self.wordLengthLabel.text = [NSString stringWithFormat:@"%0.0f", self.wordLengthSlider.value];
+        int wordLengthLabel = floor(self.wordLengthSlider.value);
+        self.wordLengthLabel.text = [NSString stringWithFormat:@"%d", wordLengthLabel];
         [userDefaults setInteger: self.wordLengthSlider.value forKey:@"standardWordLength"];
+        NSLog(@"%@", self.wordLengthLabel.text);
     }
     if (sender == self.amountOfGuessesSlider)
     {
-        self.amountOfGuessesLabel.text = [NSString stringWithFormat:@"%0.0f", self.amountOfGuessesSlider.value];
-        [userDefaults setInteger:self.amountOfGuessesSlider.value forKey:@"standardAmountOfGuesses"];
+        int amountOfGuessesLabel = floor(self.amountOfGuessesSlider.value);
+        self.amountOfGuessesLabel.text = [NSString stringWithFormat:@"%d", amountOfGuessesLabel];
+        [userDefaults setInteger: self.amountOfGuessesSlider.value forKey:@"standardAmountOfGuesses"];
+        NSLog(@"%@", self.amountOfGuessesLabel.text);
     }
 }
 
