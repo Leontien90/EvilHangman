@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "GameController.h"
 
 @interface ViewController ()
 
@@ -19,9 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    //[self setDefaultValues];
+    // set default values
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"%ld", [userDefaults integerForKey:@"standardWordLength"]);
     if ([userDefaults integerForKey:@"standardWordLength"] == 0)
     {
         [self setDefaultValues];
@@ -34,6 +34,9 @@
 
     //display keyboard
     [self.letterEntryField becomeFirstResponder];
+    
+    GameController *game = [[GameController alloc] init];
+    [game loadWordList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,4 +58,5 @@
     [userDefaults setInteger:4 forKey:@"standardWordLength"];
     [userDefaults setInteger:8 forKey:@"standardAmountOfGuesses"];
 }
+
 @end

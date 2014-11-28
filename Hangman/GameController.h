@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ViewController.h"
 
 @interface GameController : NSObject
 
-
+- (void) loadWordList;
 
 @end
