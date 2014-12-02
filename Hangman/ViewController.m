@@ -14,8 +14,10 @@
 @end
 
 @implementation ViewController
+GameController *game;
 
-- (void)viewDidLoad
+
+- (void)viewDidLoad;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -33,10 +35,16 @@
     self.letterEntryField.hidden = YES;
 
     //display keyboard
+    self.letterEntryField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.letterEntryField becomeFirstResponder];
     
-    GameController *game = [[GameController alloc] init];
+    game = [[GameController alloc] init];
+    [game newGame];
     [game loadWordList];
+    [game getCurrentWordCount];
+    self.wordToGuessLabel.text = [game getCurrentWord];
+    NSString *amountOfWords = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
+    self.amountOfWords.text = amountOfWords;
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,15 +56,22 @@
 
 - (IBAction)changeTextClick:(id)sender
 {
-    NSString *customText = self.letterEntryField.text;
-    self.wordToGuessLabel.text = customText;
+    NSString *currentGuessedLetter = self.letterEntryField.text;
+    self.letterEntryField.text = @"";
+    self.wordToGuessLabel.text = currentGuessedLetter;
+
+    [game guessLetter:currentGuessedLetter];
+    NSString *guessedLetters = [[game getGuessedLetterArray] componentsJoinedByString:@" "];
+    self.guessedLetters.text = guessedLetters;
+    NSString *guessesLeftString = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
+    self.turnsLeftLabel.text = guessesLeftString; 
 }
 
 - (void)setDefaultValues
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setInteger:4 forKey:@"standardWordLength"];
-    [userDefaults setInteger:8 forKey:@"standardAmountOfGuesses"];
+    [userDefaults setInteger: 4 forKey:@"standardWordLength"];
+    [userDefaults setInteger: 8 forKey:@"standardAmountOfGuesses"];
 }
 
 @end

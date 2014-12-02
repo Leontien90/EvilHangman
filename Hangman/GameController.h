@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ViewController.h"
 
 @interface GameController : NSObject
 
 - (void) loadWordList;
+- (void) guessLetter:(NSString *)guessedLetter;
+- (NSString *)getCurrentWord;
+- (void) newGame;
+- (NSMutableArray *)getGuessedLetterArray;
+- (int)getCurrentWordCount;
+- (int)getGuessesLeft; 
 
 @end
+

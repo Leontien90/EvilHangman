@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *turnsLeftLabel;
 @property (weak, nonatomic) IBOutlet UITextField *letterEntryField;
 @property (weak, nonatomic) IBOutlet UILabel *wordToGuessLabel;
+@property (weak, nonatomic) IBOutlet UILabel *guessedLetters;
+@property (weak, nonatomic) IBOutlet UILabel *amountOfWords;
+
 
 - (IBAction)changeTextClick:(id)sender;
 
