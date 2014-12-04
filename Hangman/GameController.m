@@ -69,35 +69,29 @@
     }
     
     // iterate over words in wordList
+    NSMutableDictionary *wordDict = [[NSMutableDictionary alloc] init];
+    
     wordListWithLetter = [[NSMutableArray alloc] init];
     wordListWithoutLetter = [[NSMutableArray alloc] init];
     for (NSString *word in wordList)
     {
-        NSRange letter = [word rangeOfString:guessedLetter];
-        if (letter.length == 1)
+        NSMutableArray *key = [[NSMutableArray alloc]init];
+        for (int location = 0; location < word.length; location++)
         {
-            [wordListWithLetter addObject:word];
+            char tempChar = [word characterAtIndex: location];
+            NSString *temp = [NSString stringWithFormat:@"%c", tempChar];
+            if ([temp isEqualToString:guessedLetter])
+            {
+                // create keys and add values and than do stuff! godammit
+                [key addObject:[NSString stringWithFormat:@"%d", location]];
+                if ([key isEqualToArray:key])
+                {
+                    // add value to existing key value pair
+                }
+            }
         }
-        else
-        {
-            [wordListWithoutLetter addObject:word];
-        }
-    }
-    
-    // check which array is the longest and than do stuff! godammit.
-    if (wordListWithoutLetter.count < wordListWithLetter.count)
-    {
-        NSLog(@"with letter: %lu", (unsigned long)wordListWithLetter.count);
-        // for letter in words in array check letter location
-        for (letter in wordListWithLetter)
-        {
-            // find the goddamn location of the letter in the word you, you person! 
-        }
-    }
-    else
-    {
-        NSLog(@"without letter: %lu", (unsigned long)wordListWithoutLetter.count);
-        // go back to previous if statement (the one where it checks for existing letters.
+        [wordDict setObject:word forKey:key];
+        NSLog(@"%@", wordDict);
     }
 }
 
