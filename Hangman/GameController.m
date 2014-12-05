@@ -12,8 +12,6 @@
 {
     NSMutableArray *guessedLetterArray;
     NSMutableArray *wordList;
-    NSMutableArray *wordListWithLetter;
-    NSMutableArray *wordListWithoutLetter;
     NSString *currentWord;
     int wordListLength;
     int guessesLeft;
@@ -68,31 +66,53 @@
         //show loser message to loser player and start new game
     }
     
-    // iterate over words in wordList
+    // Init location dictionary
     NSMutableDictionary *wordDict = [[NSMutableDictionary alloc] init];
     
-    wordListWithLetter = [[NSMutableArray alloc] init];
-    wordListWithoutLetter = [[NSMutableArray alloc] init];
     for (NSString *word in wordList)
     {
+        // Init location key
         NSMutableArray *key = [[NSMutableArray alloc]init];
+        
+        // Init temp words
+        NSMutableArray *tempWords = [[NSMutableArray alloc]init];
+        
+        // Walk over lettter locations in word
         for (int location = 0; location < word.length; location++)
         {
+            // Get letter for location
             char tempChar = [word characterAtIndex: location];
+            
+            // Convert letter to string
             NSString *temp = [NSString stringWithFormat:@"%c", tempChar];
+            
+            // Check if guessed letter is found
             if ([temp isEqualToString:guessedLetter])
             {
-                // create keys and add values and than do stuff! godammit
+                // Append letter location to location key
                 [key addObject:[NSString stringWithFormat:@"%d", location]];
-                if ([key isEqualToArray:key])
-                {
-                    // add value to existing key value pair
-                }
             }
         }
-        [wordDict setObject:word forKey:key];
-        NSLog(@"%@", wordDict);
+        
+        // Convert key array to string
+        NSString *keyStr = [key componentsJoinedByString:@","];
+        
+        // Check if key already exists
+        if ([[wordDict allKeys]containsObject:keyStr])
+        {
+            // Get current wordlist for key in dictionary
+            tempWords = [wordDict valueForKeyPath:keyStr];
+        }
+        
+        // Add word to wordlist
+        [tempWords addObject:word];
+        
+        // Add word to location dictionary on key
+        [wordDict setObject:tempWords forKey:keyStr];
     }
+    
+    // Log location dictionary
+    NSLog(@"%@", wordDict);
 }
 
 
