@@ -113,8 +113,55 @@
     
     // Log location dictionary
     NSLog(@"%@", wordDict);
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // COMPUTE DICTIONARY BY LIST LENGTH
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // Init list length
+    NSUInteger length = 0;
+    
+    // Init list keys
+    NSMutableArray *keys = [[NSMutableArray alloc]init];
+    
+    // Walk over keys in dictionary
+    for (NSString* key in wordDict)
+    {
+        // Get wordlist for key
+        NSMutableArray *listWords = [wordDict objectForKey:key];
+        
+        // Get length of wordlist
+        NSUInteger listLength = listWords.count;
+        
+        // Do stuff depending on length of wordlist
+        if (listLength >= length)
+        {
+            // Check if list is longer
+            if (listLength > length)
+            {
+                // Clear list when longer
+                [keys removeAllObjects];
+                
+                // Update max length
+                length = listLength;
+            }
+            
+            // Add wordDict key
+            [keys addObject:key];
+        }
+    }
+    
+    // Log length dictionary
+    NSLog(@"%lu", length);
+    NSLog(@"%@", keys);
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // 1. On multiple values -> select random value from array in (2)
+    //    On single value -> select value from array in (2)
+    // 2. Update wordlist with selected value from (3)
+    //////////////////////////////////////////////////////////////////////////////////////////////
 }
-
 
 - (NSMutableArray *)getGuessedLetterArray
 {
