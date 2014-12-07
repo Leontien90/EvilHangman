@@ -28,7 +28,7 @@
 - (void)loadWordList
 {
     // Load plist into array
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"short" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
     
     NSArray *thisArray = [[NSArray alloc] initWithContentsOfFile:path];
     
@@ -153,9 +153,7 @@
     NSLog(@"%@", keys);
     
     //////////////////////////////////////////////////////////////////////////////////////////////
-    // 1. On multiple values -> select random value from array in (2)
-    //    On single value -> select value from array in (2)
-    // 2. Update wordlist with selected value from (3)
+    // SELECT LONGEST LIST
     //////////////////////////////////////////////////////////////////////////////////////////////
     
     // Check for multiple longest list
@@ -174,6 +172,16 @@
     // Log updated wordlist
     NSLog(@"%@", wordList);
     
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // FILL IN GUESSED LETTER (WHEN FOUND)
+    // 1. Check guessed letter is found in selected list
+    //      TRUE  -> Get location(s)
+    //            -> Update label
+    //      FALSE -> Continue
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
     
     //////////////////////////////////////////////////////////////////////////////////////////////
     // UPDATE VIEW DATA
@@ -181,9 +189,10 @@
     
     // Update guessesLeft label
     guessesLeft = guessesLeft - 1;
-    if (guessesLeft == 0)
+    if (guessesLeft < 0)
     {
-        //show loser message to loser player and start new game
+        //start new game
+        [self newGame];
     }
     
     // Update guessed letters array

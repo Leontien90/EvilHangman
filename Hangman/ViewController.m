@@ -79,8 +79,14 @@ GameController *game;
     self.guessedLetters.text = guessedLetters;
     
     // Update guessesLeft label text
-    NSString *guessesLeftString = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
-    self.turnsLeftLabel.text = guessesLeftString;
+    if ([game getGuessesLeft] > 0)
+    {
+        self.turnsLeftLabel.text = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
+    }
+    else
+    {
+       self.turnsLeftLabel.text  = [NSString stringWithFormat:@"You lose :("];
+    }
     
     // Update amount of words label text
     NSString *amountOfWords = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
