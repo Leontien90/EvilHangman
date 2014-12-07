@@ -58,13 +58,9 @@
 
 - (void)guessLetter:(NSString *)guessedLetter
 {
-    // update guessesLeft label
-    [guessedLetterArray addObject:guessedLetter];
-    guessesLeft = guessesLeft - 1;
-    if (guessesLeft == 0)
-    {
-        //show loser message to loser player and start new game
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // COMPUTE WORD LISTS
+    //////////////////////////////////////////////////////////////////////////////////////////////
     
     // Init location dictionary
     NSMutableDictionary *wordDict = [[NSMutableDictionary alloc] init];
@@ -161,6 +157,40 @@
     //    On single value -> select value from array in (2)
     // 2. Update wordlist with selected value from (3)
     //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // Check for multiple longest list
+    if (keys.count > 1)
+    {
+        // Pick a random list
+        int randomIndex = arc4random() % (keys.count - 1);
+        wordList = wordDict[keys[randomIndex]];
+    }
+    else
+    {
+        // Select only list
+        wordList = wordDict[keys[0]];
+    }
+    
+    // Log updated wordlist
+    NSLog(@"%@", wordList);
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // UPDATE VIEW DATA
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    
+    // Update guessesLeft label
+    guessesLeft = guessesLeft - 1;
+    if (guessesLeft == 0)
+    {
+        //show loser message to loser player and start new game
+    }
+    
+    // Update guessed letters array
+    [guessedLetterArray addObject:guessedLetter];
+    
+    // Update wordList length label
+    wordListLength = (int)[wordList count];
 }
 
 - (NSMutableArray *)getGuessedLetterArray
