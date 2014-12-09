@@ -51,12 +51,18 @@ GameController *game;
     // Init current word count
     [game getCurrentWordCount];
     
+    // init current word array
+    [game getCurrentWordString];
+    
     // Init word to guess (underscores) label text
-    self.wordToGuessLabel.text = [game getCurrentWord];
+    self.wordToGuessLabel.text = [game getCurrentWordString];
     
     // Init amount of words label text
     NSString *amountOfWords = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
     self.amountOfWords.text = amountOfWords;
+    
+    self.guessedLetters.text = @"none"; 
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,14 +75,26 @@ GameController *game;
 - (IBAction)changeTextClick:(id)sender
 {
     // Update guessedLetter label text
-    NSString *currentGuessedLetter = self.letterEntryField.text;
-    self.letterEntryField.text = @"";
-    self.wordToGuessLabel.text = currentGuessedLetter;
-
-    // Update guessedLetters label text
+    NSString *guessedLetterLowerCase = self.letterEntryField.text;
+    NSString *currentGuessedLetter = [guessedLetterLowerCase uppercaseString];
+    
     [game guessLetter:currentGuessedLetter];
     NSString *guessedLetters = [[game getGuessedLetterArray] componentsJoinedByString:@" "];
-    self.guessedLetters.text = guessedLetters;
+
+    if ([currentGuessedLetter rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound)
+    {
+        if ([currentGuessedLetter rangeOfString:guessedLetters].location != NSNotFound)
+        {
+            // Update guessedLetters label text
+            self.guessedLetters.text = guessedLetters;
+        }
+    }
+    
+    // reset letterEntryField after character input
+    self.letterEntryField.text = @"";
+    
+    // update label with currenWordArray
+    self.wordToGuessLabel.text = [game getCurrentWordString];
     
     // Update guessesLeft label text
     if ([game getGuessesLeft] > 0)
@@ -98,6 +116,11 @@ GameController *game;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setInteger: 4 forKey:@"standardWordLength"];
     [userDefaults setInteger: 8 forKey:@"standardAmountOfGuesses"];
+}
+
+- (IBAction)newGame:(id)sender
+{
+    [self viewDidLoad];
 }
 
 @end

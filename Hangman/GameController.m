@@ -11,24 +11,36 @@
 @implementation GameController
 {
     NSMutableArray *guessedLetterArray;
+    NSMutableArray *currentWordArray;
     NSMutableArray *wordList;
+    
     NSString *currentWord;
+    NSString *currentWordString;
+    
     int wordListLength;
     int guessesLeft;
+    int currentWordLength;
 }
 
 - (void)newGame
 {
     guessedLetterArray = [[NSMutableArray alloc]init];
-    currentWord = @"- - - -";
+    currentWordArray = [[NSMutableArray alloc]init];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     guessesLeft = (int)[userDefaults integerForKey:@"standardAmountOfGuesses"];
+    
+    currentWordLength = (int) [userDefaults integerForKey:@"standardWordLength"];
+    for (int i = 0; i < currentWordLength; i++)
+    {
+        [currentWordArray addObject:@"_"];
+    }
 }
 
 - (void)loadWordList
 {
     // Load plist into array
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"short" ofType:@"plist"];
     
     NSArray *thisArray = [[NSArray alloc] initWithContentsOfFile:path];
     
@@ -54,6 +66,24 @@
 - (int)getGuessesLeft
 {
     return guessesLeft;
+}
+
+- (NSString *)getCurrentWordString
+{
+    // convert currenWordArray to string
+    currentWordString = [currentWordArray componentsJoinedByString:@" "];
+    
+    return currentWordString;
+}
+
+- (NSMutableArray *)getGuessedLetterArray
+{
+    return guessedLetterArray;
+}
+
+- (NSString *)getCurrentWord
+{
+    return currentWord;
 }
 
 - (void)guessLetter:(NSString *)guessedLetter
@@ -169,19 +199,29 @@
         wordList = wordDict[keys[0]];
     }
     
-    // Log updated wordlist
-    NSLog(@"%@", wordList);
-    
     //////////////////////////////////////////////////////////////////////////////////////////////
     // FILL IN GUESSED LETTER (WHEN FOUND)
-    // 1. Check guessed letter is found in selected list
-    //      TRUE  -> Get location(s)
-    //            -> Update label
-    //      FALSE -> Continue
     //////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
+
+    for (NSString *word in wordList)
+    {
+        // Walk over lettter locations in word
+        for (int location = 0; location < word.length; location++)
+        {
+            // Get letter for location
+            char tempChar = [word characterAtIndex: location];
+            
+            // Convert letter to string
+            NSString *temp = [NSString stringWithFormat:@"%c", tempChar];
+            
+            // Check if guessed letter is found
+            if ([temp isEqualToString:guessedLetter])
+            {
+                // Append letter to currentWordArray
+                [currentWordArray replaceObjectAtIndex:location withObject:guessedLetter];
+            }
+        }
+    }
     
     //////////////////////////////////////////////////////////////////////////////////////////////
     // UPDATE VIEW DATA
@@ -200,16 +240,25 @@
     
     // Update wordList length label
     wordListLength = (int)[wordList count];
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // WIN SCENARIO
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    NSLog(@"%@", currentWordArray);
+    for (id letter in currentWordArray)
+    {
+        if ([letter isEqualToString:@"_"])
+        {
+            // show lose message to loser player
+            NSLog(@"you lose");
+        }
+
+    }
+
 }
 
-- (NSMutableArray *)getGuessedLetterArray
-{
-    return guessedLetterArray;
-}
 
-- (NSString *)getCurrentWord
-{
-    return currentWord;
-}
+
 
 @end

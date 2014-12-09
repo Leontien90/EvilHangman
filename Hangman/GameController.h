@@ -16,7 +16,8 @@
 - (void) newGame;
 - (NSMutableArray *)getGuessedLetterArray;
 - (int)getCurrentWordCount;
-- (int)getGuessesLeft; 
+- (int)getGuessesLeft;
+- (NSString *)getCurrentWordString;
 
 @end
 
