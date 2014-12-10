@@ -66,7 +66,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 // (bool) CHECK FOR WIN SCENARIO
 //////////////////////////////////////////////////////////////////////////////////////////////
-
+- (bool)winScenario
+{
+    for (id letter in gameWord)
+    {
+        if ([@"_" isEqualToString:letter])
+        {
+            return false;
+        }
+    }
+    return true;
+}
 //////////////////////////////////////////////////////////////////////////////////////////////
 // (int) GET WORDLIST COUNT
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,35 +285,13 @@
     
     // Update guessesLeft label
     guessesLeft = guessesLeft - 1;
-    if (guessesLeft < 0)
-    {
-        //start new game
-        [self newGame];
-    }
     
     // Update guessed letters array
     [guessedLetters addObject:guessedLetter];
     
     // Update wordList length label
     wordListLength = (int)[wordList count];
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // WIN SCENARIO
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
-    NSLog(@"%@", gameWord);
-    for (id letter in gameWord)
-    {
-        if ([letter isEqualToString:@"_"])
-        {
-            // show lose message to loser player
-            NSLog(@"you lose");
-        }
-
-    }
-
 }
-
 
 
 

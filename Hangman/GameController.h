@@ -18,6 +18,7 @@
 - (int)getCurrentWordCount;
 - (int)getGuessesLeft;
 - (NSString *)getCurrentWordString;
+- (bool)winScenario;
 
 @end
 

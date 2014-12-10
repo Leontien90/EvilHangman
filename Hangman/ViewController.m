@@ -90,13 +90,10 @@ NSUserDefaults *userDefaults;
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // ON TEXT INPUT
-// TODO: - win scenario
-//       - lose scenario
-//       - continue scenario
-//       - info label
 //////////////////////////////////////////////////////////////////////////////////////////////
 - (IBAction)changeTextClick:(id)sender
 {
+    
     // Get letter input (uppercase)
     NSString *currentGuessedLetter = [self.letterEntryField.text uppercaseString];
 
@@ -110,13 +107,28 @@ NSUserDefaults *userDefaults;
             [game guessLetter:currentGuessedLetter];
             
             // Set labels
-            if ([game getGuessesLeft] > 0)
+            if([game winScenario])
             {
-                self.turnsLeftLabel.text = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Hello winner!"
+                                                                  message:@"guess what, you won!!"
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"New Game"
+                                                        otherButtonTitles:nil];
+                [message show];
             }
+            else if ([game getGuessesLeft] == 0)
+            {
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Hello loser!"
+                                                                  message:@"guess what, you lost."
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:@"New Game", nil];
+                [message show];
+            }
+
             else
             {
-                self.turnsLeftLabel.text = @"You lose :(";
+                self.turnsLeftLabel.text = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
             }
             self.guessedLetters.text     = [[game getGuessedLetterArray] componentsJoinedByString:@" "];
             self.amountOfWords.text      = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
@@ -126,6 +138,19 @@ NSUserDefaults *userDefaults;
     
     // Reset letterEntryField
     self.letterEntryField.text = @"";
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// HANDELING ALERT VIEW
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    NSLog(@"ViewController:alertvier:%@", title);
+    if([title isEqualToString:@"New Game"])
+    {
+        [self startNewGame];
+    }
 }
 
 @end
