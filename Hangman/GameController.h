@@ -10,15 +10,17 @@
 
 @interface GameController : NSObject
 
-- (void) loadWordList;
-- (void) guessLetter:(NSString *)guessedLetter;
-- (NSString *)getCurrentWord;
-- (void) newGame;
-- (NSMutableArray *)getGuessedLetterArray;
+- (void)editSettings;
+- (void)newGame;
+- (void)evilGameplay:(NSString *)userInput;
+- (NSMutableArray *)getGameWord;
+- (NSMutableArray *)getGuessedLetters;
 - (int)getCurrentWordCount;
 - (int)getGuessesLeft;
-- (NSString *)getCurrentWordString;
+- (int)getMinWordLength;
+- (int)getMaxWordLength;
 - (bool)winScenario;
+- (bool)loseScenario;
 
 @end
 

@@ -5,6 +5,7 @@
 //  Created by Leontien Boere on 10-11-14.
 //  Copyright (c) 2014 Leontien Boere. All rights reserved.
 //
+//  TODO: comment viewcontroller class
 
 #import "ViewController.h"
 #import "GameController.h"
@@ -18,9 +19,9 @@
 GameController *game;
 NSUserDefaults *userDefaults;
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// CONSTRUCTOR
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * CONSTRUCTOR
+ **/
 - (void)viewDidLoad;
 {
     [super viewDidLoad];
@@ -43,36 +44,36 @@ NSUserDefaults *userDefaults;
     [self startNewGame];
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// HANDLE MEMORY WARNING
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * HANDLING MEMORY WARNINGS
+ **/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// SET STANDARD USER DEFAULTS
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * SET STANDARD USER DEFAULTS
+ **/
 - (void)setDefaultValues
 {
     [userDefaults setInteger: 4 forKey:@"standardWordLength"];
     [userDefaults setInteger: 8 forKey:@"standardAmountOfGuesses"];
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// ON NEW GAME BUTTON
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * ON NEW GAME BUTTON
+ **/
 - (IBAction)onButtonNewGame:(id)sender
 {
     // Start new game
     [self startNewGame];
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// START A NEW GAME
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * START A NEW GAME
+ **/
 - (void)startNewGame
 {
     // Init game controller
@@ -85,28 +86,34 @@ NSUserDefaults *userDefaults;
     self.turnsLeftLabel.text    = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardAmountOfGuesses"]];
     self.guessedLetters.text    = @"none";
     self.amountOfWords.text     = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
-    self.wordToGuessLabel.text  = [game getCurrentWordString];
+    self.wordToGuessLabel.text  = [[game getGameWord] componentsJoinedByString:@" "];
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// ON TEXT INPUT
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * ON TEXT INPUT
+ * - validate user input and check game status before passing arguments to gameController
+ **/
 - (IBAction)changeTextClick:(id)sender
 {
-    
     // Get letter input (uppercase)
-    NSString *currentGuessedLetter = [self.letterEntryField.text uppercaseString];
+    NSString *userInput = [self.letterEntryField.text uppercaseString];
 
     // Validate input against character set
-    if ([currentGuessedLetter rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound)
+    if ([userInput rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound)
     {
         // Validate input does not already exist
-        if ([[[game getGuessedLetterArray] componentsJoinedByString:@""] rangeOfString:currentGuessedLetter].location == NSNotFound)
+        if ([[[game getGuessedLetters] componentsJoinedByString:@""] rangeOfString:userInput].location == NSNotFound)
         {
             // Run algorithme
-            [game guessLetter:currentGuessedLetter];
+            [game evilGameplay:userInput];
             
             // Set labels
+            self.turnsLeftLabel.text    = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
+            self.guessedLetters.text    = [[game getGuessedLetters] componentsJoinedByString:@" "];
+            self.amountOfWords.text     = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
+            self.wordToGuessLabel.text  = [[game getGameWord] componentsJoinedByString:@" "];
+            
+            // Check current game state
             if([game winScenario])
             {
                 UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Hello winner!"
@@ -116,23 +123,15 @@ NSUserDefaults *userDefaults;
                                                         otherButtonTitles:nil];
                 [message show];
             }
-            else if ([game getGuessesLeft] == 0)
+            else if ([game loseScenario])
             {
                 UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Hello loser!"
                                                                   message:@"guess what, you lost."
                                                                  delegate:self
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles:@"New Game", nil];
+                                                        cancelButtonTitle:@"New Game"
+                                                        otherButtonTitles:nil];
                 [message show];
             }
-
-            else
-            {
-                self.turnsLeftLabel.text = [NSString stringWithFormat:@"%d", [game getGuessesLeft]];
-            }
-            self.guessedLetters.text     = [[game getGuessedLetterArray] componentsJoinedByString:@" "];
-            self.amountOfWords.text      = [NSString stringWithFormat:@"%d", [game getCurrentWordCount]];
-            self.wordToGuessLabel.text   = [game getCurrentWordString];
         }
     }
     
@@ -140,13 +139,12 @@ NSUserDefaults *userDefaults;
     self.letterEntryField.text = @"";
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-// HANDELING ALERT VIEW
-//////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * HANDLING ALERT VIEW
+ **/
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    NSLog(@"ViewController:alertvier:%@", title);
     if([title isEqualToString:@"New Game"])
     {
         [self startNewGame];

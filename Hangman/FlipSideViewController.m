@@ -7,6 +7,7 @@
 //
 
 #import "FlipSideViewController.h"
+#import "GameController.h"
 
 @interface FlipSideViewController ()
 
@@ -14,35 +15,57 @@
 
 @implementation FlipSideViewController
 
+GameController *game;
+NSUserDefaults *userDefaults;
+
+/**
+ * CONSTRUCTOR
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.wordLengthSlider.value = [userDefaults integerForKey:@"standardWordLength"];
-    self.wordLengthLabel.text = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardWordLength"]];
+    // Get default settings
+    userDefaults = [NSUserDefaults standardUserDefaults];
     
-    self.amountOfGuessesSlider.value = [userDefaults integerForKey:@"standardAmountOfGuesses"];
-    self.amountOfGuessesLabel.text = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardAmountOfGuesses"]];
+    // Init game controller
+    game = [[GameController alloc] init];
+    [game editSettings];
+    
+    // Set wordlength slider
+    self.wordLengthLabel.text          = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardWordLength"]];
+    self.wordLengthSlider.minimumValue = floor([game getMinWordLength]);
+    self.wordLengthSlider.maximumValue = floor([game getMaxWordLength]);
+    self.wordLengthSlider.value        = [userDefaults integerForKey:@"standardWordLength"];
+    
+    // Set amount of guesses slider
+    self.amountOfGuessesLabel.text     = [NSString stringWithFormat:@"%0.0ld", (long)[userDefaults integerForKey:@"standardAmountOfGuesses"]];
+    self.amountOfGuessesSlider.value   = [userDefaults integerForKey:@"standardAmountOfGuesses"];
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-// Change slide value and update standardUserDefaults
+/**
+ * STORE SLIDER VALUES
+ */
 -(IBAction)sliderValueChanged:(id)sender
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // Get default settings
+    userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    // Store word length
     if (sender == self.wordLengthSlider)
     {
         int wordLengthLabel = floor(self.wordLengthSlider.value);
         self.wordLengthLabel.text = [NSString stringWithFormat:@"%d", wordLengthLabel];
         [userDefaults setInteger: self.wordLengthSlider.value forKey:@"standardWordLength"];
     }
+    
+    // Store amount of guesses
     if (sender == self.amountOfGuessesSlider)
     {
         int amountOfGuessesLabel = floor(self.amountOfGuessesSlider.value);

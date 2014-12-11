@@ -1,25 +1,54 @@
 //
-//  GameController.m
-//  Hangman
+// GameController.m
+// Hangman
 //
-//  Created by Leontien Boere on 26-11-14.
-//  Copyright (c) 2014 Leontien Boere. All rights reserved.
+// Created by Leontien Boere on 26-11-14.
+// Copyright (c) 2014 Leontien Boere. All rights reserved.
 //
+// TODO comment gameController class
 
 #import "GameController.h"
 
 @implementation GameController
 {
+    NSUserDefaults *userDefaults;       // Default settings
+    NSString *guessedLetter;            // Current guessed letter
     NSMutableArray *gameWord;           // Contains word to guess
     NSMutableArray *wordList;           // Contains words based on selected length
     NSMutableArray *guessedLetters;     // Contains input letters
+    NSMutableDictionary *wordDict;      // Contains wordlists based on letter location
+    int wordListLength;                 // Length of wordlist
+    int guessesLeft;                    // Amount of guesses left
+    int minWordLength;                  // Length of shortest word in wordlist
+    int maxWordLength;                  // Length of longest word in wordlist
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (void) EDIT SETTINGS
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)editSettings
+{
+    // Get default settings
+    userDefaults    = [NSUserDefaults standardUserDefaults];
     
-    NSString *currentWord;
-    NSString *currentWordString;
-    
-    int wordListLength;
-    int guessesLeft;
-    int currentWordLength;
+    // Load wordlist
+    [self loadWordList:FALSE];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (int) GET MIN WORD LENGTH
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (int)getMinWordLength
+{
+    return minWordLength;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (int) GET MAX WORD LENGTH
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (int)getMaxWordLength
+{
+    return maxWordLength;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,146 +56,94 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 - (void)newGame
 {
-    guessedLetters = [[NSMutableArray alloc]init];
-    gameWord = [[NSMutableArray alloc]init];
+    // Set default parameters
+    userDefaults    = [NSUserDefaults standardUserDefaults];
+    gameWord        = [[NSMutableArray alloc]init];
+    guessedLetters  = [[NSMutableArray alloc]init];
+    guessesLeft     = (int)[userDefaults integerForKey:@"standardAmountOfGuesses"];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    guessesLeft = (int)[userDefaults integerForKey:@"standardAmountOfGuesses"];
-    
-    currentWordLength = (int) [userDefaults integerForKey:@"standardWordLength"];
-    for (int i = 0; i < currentWordLength; i++)
+    // Set game word
+    int n = (int)[userDefaults integerForKey:@"standardWordLength"];
+    for (int i = 0; i < n; i++)
     {
         [gameWord addObject:@"_"];
     }
     
     // Load wordlist
-    [self loadWordList];
+    [self loadWordList:TRUE];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (void) LOAD WORDLIST
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)loadWordList:(BOOL)filterOnLength
+{
+    // Load plist into wordlist
+    NSString *path     = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
+    NSArray *wordsList = [[NSArray alloc] initWithContentsOfFile:path];
+    wordList           = [[NSMutableArray alloc] init];
+    int length         = (int)[userDefaults integerForKey:@"standardWordLength"];
+    minWordLength      = 0;
+    maxWordLength      = 0;
+    for (NSString *word in wordsList)
+    {
+        if (!filterOnLength || (filterOnLength && word.length == length))
+        {
+            // Add word to wordlist
+            [wordList addObject:word];
+            
+            // Check and update min/max word length
+            int wordLength = (int)[word length];
+            if (wordLength < minWordLength || minWordLength == 0)
+            {
+                minWordLength = wordLength;
+            }
+            if (wordLength > maxWordLength || maxWordLength == 0)
+            {
+                maxWordLength = wordLength;
+            }
+        }
+    }
+    
+    // Update wordlist length
+    wordListLength = (int)[wordList count];
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // (void) UPDATE WORDLIST (evil gameplay)
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (void) UPDATE GAME WORD
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (void) UPDATE GUESSED LETTERS
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (void) UPDATE GUESSES LEFT
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (bool) CHECK FOR LOSE SCENARIO
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (bool) CHECK FOR WIN SCENARIO
-//////////////////////////////////////////////////////////////////////////////////////////////
-- (bool)winScenario
+- (void)evilGameplay:(NSString *)userInput
 {
-    for (id letter in gameWord)
-    {
-        if ([@"_" isEqualToString:letter])
-        {
-            return false;
-        }
-    }
-    return true;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (int) GET WORDLIST COUNT
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (int) GET GUESSES LEFT
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (string) GET GAME WORD
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-// (string) GET GUESSED LETTERS
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-- (void)loadWordList
-{
-    // Load plist into array
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"short" ofType:@"plist"];
+    // Allocate memory
+    wordDict = [[NSMutableDictionary alloc] init];
     
-    NSArray *thisArray = [[NSArray alloc] initWithContentsOfFile:path];
+    // Set guessed letter
+    guessedLetter = userInput;
+    guessesLeft   = guessesLeft - 1;
+    [guessedLetters addObject:guessedLetter];
     
-    // create new array based on standardWordLength
-    wordList = [[NSMutableArray alloc] init];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    int wordLength =  (int)[userDefaults integerForKey:@"standardWordLength"];
-    for (NSString *word in thisArray)
-    {
-        if (word.length == wordLength)
-        {
-            [wordList addObject:word];
-        }
-    }
-    wordListLength = (int)[wordList count];
+    // Evil gameplay
+    [self sortWordList];
+    [self selectLongestWordList];
+    [self updateGameWord];
 }
 
-- (int)getCurrentWordCount
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (void) SORT WORDLIST DEPENDING ON LETTER LOCATION
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)sortWordList
 {
-    return wordListLength;
-}
-
-- (int)getGuessesLeft
-{
-    return guessesLeft;
-}
-
-- (NSString *)getCurrentWordString
-{
-    // convert currenWordArray to string
-    currentWordString = [gameWord componentsJoinedByString:@" "];
-    
-    return currentWordString;
-}
-
-- (NSMutableArray *)getGuessedLetterArray
-{
-    return guessedLetters;
-}
-
-- (NSString *)getCurrentWord
-{
-    return currentWord;
-}
-
-- (void)guessLetter:(NSString *)guessedLetter
-{
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // COMPUTE WORD LISTS
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // Init location dictionary
-    NSMutableDictionary *wordDict = [[NSMutableDictionary alloc] init];
-    
     for (NSString *word in wordList)
     {
-        // Init location key
-        NSMutableArray *key = [[NSMutableArray alloc]init];
-        
-        // Init temp words
+        // Allocate memory
+        NSMutableArray *key       = [[NSMutableArray alloc]init];
         NSMutableArray *tempWords = [[NSMutableArray alloc]init];
         
         // Walk over lettter locations in word
         for (int location = 0; location < word.length; location++)
         {
             // Get letter for location
-            char tempChar = [word characterAtIndex: location];
-            
-            // Convert letter to string
-            NSString *temp = [NSString stringWithFormat:@"%c", tempChar];
+            NSString *temp = [NSString stringWithFormat:@"%c", [word characterAtIndex: location]];
             
             // Check if guessed letter is found
             if ([temp isEqualToString:guessedLetter])
@@ -192,19 +169,15 @@
         // Add word to location dictionary on key
         [wordDict setObject:tempWords forKey:keyStr];
     }
-    
-    // Log location dictionary
-    NSLog(@"%@", wordDict);
-    
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // COMPUTE DICTIONARY BY LIST LENGTH
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // Init list length
-    NSUInteger length = 0;
-    
-    // Init list keys
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (void) SELECT LONGEST WORDLIST IN WORDDICT AND UPDATE WORDLIST
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)selectLongestWordList
+{
+    // Allocate memory and set parameters
+    NSUInteger length    = 0;
     NSMutableArray *keys = [[NSMutableArray alloc]init];
     
     // Walk over keys in dictionary
@@ -234,14 +207,6 @@
         }
     }
     
-    // Log length dictionary
-    NSLog(@"%lu", length);
-    NSLog(@"%@", keys);
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // SELECT LONGEST LIST
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    
     // Check for multiple longest list
     if (keys.count > 1)
     {
@@ -255,10 +220,15 @@
         wordList = wordDict[keys[0]];
     }
     
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // FILL IN GUESSED LETTER (WHEN FOUND)
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Update wordlist length
+    wordListLength = (int)[wordList count];
+}
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (void) UPDATE GAME WORD
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (void)updateGameWord
+{
     for (NSString *word in wordList)
     {
         // Walk over lettter locations in word
@@ -278,21 +248,65 @@
             }
         }
     }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // UPDATE VIEW DATA
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // Update guessesLeft label
-    guessesLeft = guessesLeft - 1;
-    
-    // Update guessed letters array
-    [guessedLetters addObject:guessedLetter];
-    
-    // Update wordList length label
-    wordListLength = (int)[wordList count];
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (bool) CHECK FOR LOSE SCENARIO
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (bool)loseScenario
+{
+    if (guessesLeft < 1)
+    {
+        return true;
+    }
+    return false;
+}
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (bool) CHECK FOR WIN SCENARIO
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (bool)winScenario
+{
+    for (id letter in gameWord)
+    {
+        if ([@"_" isEqualToString:letter])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (int) GET CURRENT WORDLIST COUNT
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (int)getCurrentWordCount
+{
+    return wordListLength;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (int) GET GUESSES LEFT
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (int)getGuessesLeft
+{
+    return guessesLeft;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (string) GET GAME WORD
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (NSMutableArray *)getGameWord
+{
+    return gameWord;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// (string) GET GUESSED LETTERS
+//////////////////////////////////////////////////////////////////////////////////////////////
+- (NSMutableArray *)getGuessedLetters
+{
+    return guessedLetters;
+}
 
 @end
