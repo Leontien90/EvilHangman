@@ -18,6 +18,8 @@
 		65A25AC61A10DCA800BCFF3F /* FlipSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A25AC51A10DCA800BCFF3F /* FlipSideViewController.m */; };
 		65A25AC91A10DF3000BCFF3F /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65A25AC81A10DF3000BCFF3F /* words.plist */; };
 		65CC25C31A26082A0044B3F8 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC25C21A26082A0044B3F8 /* GameController.m */; };
+		65DE65E81A3B2F4600C63557 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65DE65E71A3B2F4600C63557 /* background.jpg */; };
+		65DE65EA1A3B312C00C63557 /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65DE65E91A3B312C00C63557 /* background2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		65A25AC81A10DF3000BCFF3F /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 		65CC25C11A26082A0044B3F8 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		65CC25C21A26082A0044B3F8 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
+		65DE65E71A3B2F4600C63557 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		65DE65E91A3B312C00C63557 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 		65A25A9F1A10D99800BCFF3F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				65DE65E91A3B312C00C63557 /* background2.jpg */,
+				65DE65E71A3B2F4600C63557 /* background.jpg */,
 				65A25AC81A10DF3000BCFF3F /* words.plist */,
 				65A25AA01A10D99800BCFF3F /* Info.plist */,
 				65A25AA11A10D99800BCFF3F /* main.m */,
@@ -217,7 +223,9 @@
 			files = (
 				65A25AAB1A10D99800BCFF3F /* Main.storyboard in Resources */,
 				658202591A1F4A4F0029D295 /* short.plist in Resources */,
+				65DE65EA1A3B312C00C63557 /* background2.jpg in Resources */,
 				65A25AB01A10D99800BCFF3F /* LaunchScreen.xib in Resources */,
+				65DE65E81A3B2F4600C63557 /* background.jpg in Resources */,
 				65A25AC91A10DF3000BCFF3F /* words.plist in Resources */,
 				65A25AAD1A10D99800BCFF3F /* Images.xcassets in Resources */,
 			);
