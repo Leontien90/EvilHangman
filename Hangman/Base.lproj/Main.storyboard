@@ -17,6 +17,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Evil Hangman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asi-om-lKI">
+                                <rect key="frame" x="46" y="28" width="228" height="37"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="29"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="highlightedColor" red="0.40421977799999997" green="1" blue="0.88260690789999996" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="shadowColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="0.0" height="2"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-hd-mAl">
+                                <rect key="frame" x="16" y="36" width="22" height="22"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onButtonNewGame:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RZS-tD-V83"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-c0-7pA">
                                 <rect key="frame" x="282" y="36" width="22" height="22"/>
                                 <variation key="heightClass=regular" fixedFrame="YES">
@@ -48,15 +65,6 @@
                                     <action selector="changeTextClick:" destination="vXZ-lx-hvc" eventType="editingChanged" id="psL-Hh-VYS"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-hd-mAl">
-                                <rect key="frame" x="16" y="36" width="22" height="22"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onButtonNewGame:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RZS-tD-V83"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Turns Left:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUB-px-EBG">
                                 <rect key="frame" x="16" y="73" width="122" height="23"/>
                                 <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="20"/>
@@ -85,19 +93,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBI-yG-0GD">
                                 <rect key="frame" x="174" y="311" width="130" height="21"/>
                                 <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Evil Hangman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asi-om-lKI">
-                                <rect key="frame" x="46" y="28" width="228" height="37"/>
-                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="29"/>
-                                <color key="textColor" red="0.060685999837880589" green="0.089140190752149184" blue="0.89252672697368418" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="highlightedColor" red="0.40421977799999997" green="1" blue="0.88260690789999996" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="shadowColor" red="0.40421977799999997" green="1" blue="0.88260690789999996" alpha="1" colorSpace="deviceRGB"/>
-                                <size key="shadowOffset" width="0.0" height="2"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="none" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsZ-CO-ZM1">
-                                <rect key="frame" x="16" y="259" width="288" height="44"/>
+                                <rect key="frame" x="16" y="253" width="288" height="44"/>
                                 <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

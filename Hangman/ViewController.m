@@ -5,7 +5,8 @@
 //  Created by Leontien Boere on 10-11-14.
 //  Copyright (c) 2014 Leontien Boere. All rights reserved.
 //
-//  TODO: comment viewcontroller class
+// - updates labels
+// - handles user input
 
 #import "ViewController.h"
 #import "GameController.h"
